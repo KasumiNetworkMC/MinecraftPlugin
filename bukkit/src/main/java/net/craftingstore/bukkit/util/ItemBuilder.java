@@ -24,6 +24,13 @@ public class ItemBuilder {
         this.amount = 1;
     }
 
+    public ItemBuilder(Material type, String name, int amount) {
+        this.type = type;
+        this.name = name;
+        this.lore = null;
+        this.amount = amount;
+    }
+
     public ItemBuilder(Material type, String name, String... lore) {
         this.type = type;
         this.name = name;
@@ -54,6 +61,13 @@ public class ItemBuilder {
         this.type = type;
         this.name = name;
         this.lore = Arrays.asList(lore);
+        this.amount = amount;
+    }
+
+    public ItemBuilder(Material type, String name, int amount, List<String> lore) {
+        this.type = type;
+        this.name = name;
+        this.lore = lore;
         this.amount = amount;
     }
 

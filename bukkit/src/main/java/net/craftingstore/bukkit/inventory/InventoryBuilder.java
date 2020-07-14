@@ -5,17 +5,13 @@ import net.craftingstore.bukkit.CraftingStoreBukkit;
 import net.craftingstore.bukkit.util.ChatColorUtil;
 import net.craftingstore.bukkit.util.ItemBuilder;
 import net.craftingstore.bukkit.util.XMaterial;
-import net.craftingstore.core.CraftingStore;
 import net.craftingstore.core.models.api.inventory.CraftingStoreInventory;
 import net.craftingstore.core.models.api.inventory.InventoryItem;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -29,49 +25,48 @@ public class InventoryBuilder {
     }
 
     public Inventory buildInventory(CraftingStoreInventory csInventory) {
-        for (int i = 0; i < 2; i++) {
-            InventoryItem inventoryItem = csInventory.getByIndex(i);
-
-            if (i == 0) {
-                inventoryItem.setName("Ranks");
-            } else if (i == 1) {
-                inventoryItem.setName("Casino");
-            }
-
-            inventoryItem.setDescription(null);
-        }
-
         return buildInventory(csInventory, null);
     }
 
     public Inventory buildInventory(CraftingStoreInventory csInventory, CraftingStoreInventoryHolder parent) {
-        String title = ChatColorUtil.color(Configuration.INVENTORY_NAME);
+        String title;
+
+        if (csInventory.getTitle() == null) {
+            title = ChatColorUtil.color(Configuration.FALL_BACK_INVENTORY_TITLE);
+        } else {
+            title = ChatColorUtil.color(csInventory.getTitle());
+        }
+
         Inventory inventory = Bukkit.createInventory(new CraftingStoreInventoryHolder(csInventory, parent), csInventory.getSize(), title);
 
-        int i = 0;
         for (InventoryItem inventoryItem : csInventory.getContent()) {
-            String name = inventoryItem.getName();
+            String name = ChatColorUtil.color(inventoryItem.getName());
 
             Material material;
 
-            if (Configuration.RANK_ITEMS.containsKey(name)) {
-                material = Configuration.RANK_ITEMS.get(name).getMaterial();
-            } else {
+            if (inventoryItem.getIcon() == null) {
                 material = Material.CHEST;
+            } else {
+                XMaterial xMaterial = XMaterial.fromString(inventoryItem.getIcon().getMaterial());
+
+                if (xMaterial == null || xMaterial.parseMaterial() == null) {
+                    material = Material.CHEST;
+                } else {
+                    material = xMaterial.parseMaterial();
+                }
             }
 
             List<String> lore = null;
 
             if (inventoryItem.getDescription() != null && inventoryItem.getDescription().length != 0) {
-                lore = Arrays.stream(inventoryItem.getDescription()).map(d ->
-                        ChatColor.translateAlternateColorCodes('&', d)).collect(Collectors.toList());
+                lore = Arrays.stream(inventoryItem.getDescription()).map(ChatColorUtil::color).collect(Collectors.toList());
             }
             ItemBuilder itemBuilder;
 
              if (lore != null) {
-                 itemBuilder = new ItemBuilder(material, ChatColor.GOLD + name, lore);
+                 itemBuilder = new ItemBuilder(material, name, inventoryItem.getIcon().getAmount(), lore);
              } else {
-                 itemBuilder = new ItemBuilder(material, ChatColor.GOLD + name);
+                 itemBuilder = new ItemBuilder(material, name, inventoryItem.getIcon().getAmount());
              }
 
             inventory.setItem(inventoryItem.getIndex(), itemBuilder.build());

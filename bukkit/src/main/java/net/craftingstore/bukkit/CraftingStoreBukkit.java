@@ -38,8 +38,6 @@ public class CraftingStoreBukkit extends JavaPlugin {
             new PlaceholderAPIHook(craftingStore);
             craftingStore.getLogger().info("Hooked with PlaceholderAPI");
         }
-
-        Configuration.init();
     }
 
     @Override

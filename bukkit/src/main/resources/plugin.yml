@@ -4,9 +4,7 @@ version: 2.3.1
 softdepend: [PlaceholderAPI]
 api-version: "1.13"
 commands:
-  craftingstore:
+  store:
     description: CraftingStore command
-    aliases: [cs]
-  csbuy:
+  buy:
     description: Buy command
-    aliases: [buy]
