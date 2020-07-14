@@ -17,7 +17,7 @@ public class CraftingStoreBukkit extends JavaPlugin {
 
     private CraftingStore craftingStore;
     private Config config;
-    private String prefix = ChatColor.GRAY + "[" + ChatColor.RED + "CraftingStore" + ChatColor.GRAY + "] " + ChatColor.WHITE;
+    private String prefix = ChatColor.GRAY + "[" + ChatColor.RED + "Kasumi-Store" + ChatColor.GRAY + "] " + ChatColor.WHITE;
 
     @Override
     public void onEnable() {

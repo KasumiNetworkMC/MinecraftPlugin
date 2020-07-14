@@ -6,6 +6,7 @@
 
     <groupId>net.craftingstore</groupId>
     <artifactId>bukkit</artifactId>
+    <name>Store</name>
     <version>2.3.1-SNAPSHOT</version>
     <build>
         <plugins>

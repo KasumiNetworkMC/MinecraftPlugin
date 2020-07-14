@@ -1,8 +1,6 @@
-name: CraftingStore
+name: Store
 main: net.craftingstore.bukkit.CraftingStoreBukkit
 version: 2.3.1
-authors: [Tim_kwakman, thijs_a]
-prefix: CraftingStore
 softdepend: [PlaceholderAPI]
 api-version: "1.13"
 commands:
