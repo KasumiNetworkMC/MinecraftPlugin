@@ -9,11 +9,11 @@ import org.bukkit.command.CommandSender;
 
 import java.util.concurrent.ExecutionException;
 
-public class CraftingStoreCommand implements CommandExecutor {
+public class StoreCommand implements CommandExecutor {
 
     private CraftingStoreBukkit instance;
 
-    public CraftingStoreCommand(CraftingStoreBukkit instance) {
+    public StoreCommand(CraftingStoreBukkit instance) {
         this.instance = instance;
     }
 

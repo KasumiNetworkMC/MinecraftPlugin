@@ -17,7 +17,7 @@ public class BukkitPluginConfiguration implements PluginConfiguration {
 
     @Override
     public String[] getMainCommands() {
-        return new String[]{"craftingstore", "cs"};
+        return new String[]{"store"};
     }
 
     @Override

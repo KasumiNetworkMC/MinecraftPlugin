@@ -1,7 +1,7 @@
 package net.craftingstore.bukkit;
 
 import net.craftingstore.bukkit.commands.BuyCommand;
-import net.craftingstore.bukkit.commands.CraftingStoreCommand;
+import net.craftingstore.bukkit.commands.StoreCommand;
 import net.craftingstore.bukkit.config.Config;
 import net.craftingstore.bukkit.hooks.PlaceholderAPIHook;
 import net.craftingstore.bukkit.listeners.InventoryListener;
@@ -24,9 +24,9 @@ public class CraftingStoreBukkit extends JavaPlugin {
         config = new Config("config.yml", this);
         this.craftingStore = new CraftingStore(new CraftingStoreBukkitImpl(this));
 
-        this.getCommand("craftingstore").setExecutor(new CraftingStoreCommand(this));
+        this.getCommand("store").setExecutor(new StoreCommand(this));
         if (this.craftingStore.getImplementation().getConfiguration().isBuyCommandEnabled()) {
-            this.getCommand("csbuy").setExecutor(new BuyCommand(this));
+            this.getCommand("buy").setExecutor(new BuyCommand(this));
         }
 
         this.getServer().getPluginManager().registerEvents(new InventoryListener(this), this);
@@ -38,6 +38,8 @@ public class CraftingStoreBukkit extends JavaPlugin {
             new PlaceholderAPIHook(craftingStore);
             craftingStore.getLogger().info("Hooked with PlaceholderAPI");
         }
+
+        Configuration.init();
     }
 
     @Override

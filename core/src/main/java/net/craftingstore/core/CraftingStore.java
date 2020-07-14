@@ -4,9 +4,11 @@ import net.craftingstore.core.http.CraftingStoreCachedAPI;
 import net.craftingstore.core.exceptions.CraftingStoreApiException;
 import net.craftingstore.core.jobs.ExecuteDonationsJob;
 import net.craftingstore.core.logging.CraftingStoreLogger;
+import net.craftingstore.core.models.api.ApiCategory;
 import net.craftingstore.core.models.api.Root;
 import net.craftingstore.core.models.api.misc.CraftingStoreInformation;
 import net.craftingstore.core.models.api.misc.UpdateInformation;
+import net.craftingstore.core.models.api.provider.ProviderInformation;
 import net.craftingstore.core.models.donation.Donation;
 import net.craftingstore.core.provider.ProviderSelector;
 import net.craftingstore.core.runner.DonationRunner;
@@ -86,6 +88,7 @@ public class CraftingStore {
                     setEnabled(false);
                     return false;
                 }
+
                 Root keyResult = this.getApi().checkKey().get();
                 if (!keyResult.isSuccess()) {
                     getLogger().error("API key is invalid. The plugin will not work.");
